@@ -1,18 +1,46 @@
 'use strict';
 
-const arg  = (argText) => {
-    let res  = 'this number';
-    if (typeof argText === 'string'){
-        let maxlength = 30;
-        if (argText.length > maxlength){
-            res = argText.trim().substr(0,30) + '...';
-        } else {
-            res = argText.trim();
+/*
+1) Создать массив arr = []
+— Записать в него 7 любых многозначных чисел в виде строк
+— Вывести в консоль только те, что начинаются с цифры 2 или 4 (Должны присутствовать в массиве)
+*/
+
+const  array = ['3421358', '4523', '94629', '284673', '695863', '28758', '986453'];
+
+for (let i = 0; i < array.length; i++){
+    if (array[i].startsWith('2') || array[i].startsWith('4')){
+        console.log(array[i]);
+    }
+}
+
+/*
+2) Вывести в столбик все простые числа от 1 до 100
+*/
+
+const number = i => {
+    let arr = [];
+    if (i !== 1){
+        arr.push(1);
+        for (let j = 2; j * j <= i; j++){
+            if (i % j === 0){
+                arr.push(j);
+            }
         }
     }
-    return res;
+    arr.push(i);
+    return arr;
 };
 
-console.log('number: ' + arg(5));
-console.log('before 30: ' + arg('    My name '));
-console.log('...: ' + arg('   My name is Batish, he lives in Kyrgyzstan, city TashKumyr '));
+for (let i = 1; i <= 100; i++){
+    const n = number(i);
+    if (n.length <= 2){
+        console.log(`${i}: Простое число. Делители этого числа: ${n.join(', ')}`);
+    }
+}
+
+// — Рядом с каждым числом написать оба делителя данного числа
+//     Например: “Делители этого числа: 1 и n”
+for (let i = 1; i <= 100; i++) {
+    console.log(`${i}: Делители этого числа: ${number(i).join(', ')}`);
+}
