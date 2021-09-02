@@ -1,29 +1,18 @@
 'use strict';
 
-const lang = 'en';
-
-//через ив
-if (lang === 'ru'){
-    console.log('пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс');
-} else {
-    console.log('mn', 'ts', 'wd', 'th', 'fr', 'st', 'sn');
-}
-
-switch (lang) {
-    case "en":
-        console.log('mn', 'ts', 'wd', 'th', 'fr', 'st', 'sn');
-        break;
-    case "ru":
-        console.log('пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс');
-    default:
-}
-
-const lan = {
-    'ru': ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'],
-    'en': ['mn', 'ts', 'wd', 'th', 'fr', 'st', 'sn']
+const arg  = (argText) => {
+    let res  = 'this number';
+    if (typeof argText === 'string'){
+        let maxlength = 30;
+        if (argText.length > maxlength){
+            res = argText.trim().substr(0,30) + '...';
+        } else {
+            res = argText.trim();
+        }
+    }
+    return res;
 };
 
-console.log(lan[lang]);
-
-const namePerson = 'Alex';
-console.log((namePerson === 'Alex') ? 'CEO' : (namePerson === 'Maxim') ? 'teacher' : 'student');
+console.log('number: ' + arg(5));
+console.log('before 30: ' + arg('    My name '));
+console.log('...: ' + arg('   My name is Batish, he lives in Kyrgyzstan, city TashKumyr '));
