@@ -1,49 +1,30 @@
 'use strict';
-const isNum = n => {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-};
 
-const start = () => {
-    let num = 50;
-    let tmp = 10;
-    const game = () => {
-        tmp--;
-        if (tmp < 0){
-            if (confirm('Попытки закончились, хотите сыграть еще?')) {
-                start();
-            } else {
-                alert('До свидания');
-                return;
-            }
-        } else {
-            const n = prompt('Угадай число от 1 до 100','50');
-            if (n === null){
-                alert('Пока');
-                return;
-            }
-            if (isNum(n)){
-                const realNum = n;
-                if (realNum > num){
-                    alert(`Загаданное число больше, осталось попыток: ${tmp}`);
-                    game();
-                } else if (realNum < num){
-                    alert(`Загаданное число меньше, осталось попыток: ${tmp}`);
-                    game();
-                } else {
-                    if (confirm('Вы угадали! Сыграем ещё?')){
-                        start();
-                    } else {
-                        alert('До свидания');
-                        return;
-                    }
-                }
-            } else {
-                alert('Введите число');
-                game();
-            }
-        }
-    };
-    game();
-};
+/*
+1) Создать массив week и записать в него дни недели в виде строк
+·        Вывести на экран все дни недели
+·        Каждый из них с новой строчки
+·        Выходные дни - курсивом
+·        Текущий день - жирным шрифтом(использовать объект даты)
+*/
 
-start();
+const week = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
+
+const day = new Date();
+let weekDay = day.getDay();
+if (weekDay === 0) {
+    weekDay = 6;
+} else {
+    weekDay--;
+}
+
+week.forEach((item, i) => {
+    let str = item;
+    if (i === weekDay){
+        str = `<b>${item}</b>`;
+    } else {
+        str = `${item}`;
+    }
+    if (i === 5 || i === 6) { str = `<i>${str}</i>`; }
+    document.body.insertAdjacentHTML('beforeend', `<div>${str}</div>`);
+});
