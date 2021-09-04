@@ -1,46 +1,49 @@
 'use strict';
-
-/*
-1) Создать массив arr = []
-— Записать в него 7 любых многозначных чисел в виде строк
-— Вывести в консоль только те, что начинаются с цифры 2 или 4 (Должны присутствовать в массиве)
-*/
-
-const  array = ['3421358', '4523', '94629', '284673', '695863', '28758', '986453'];
-
-for (let i = 0; i < array.length; i++){
-    if (array[i].startsWith('2') || array[i].startsWith('4')){
-        console.log(array[i]);
-    }
-}
-
-/*
-2) Вывести в столбик все простые числа от 1 до 100
-*/
-
-const number = i => {
-    let arr = [];
-    if (i !== 1){
-        arr.push(1);
-        for (let j = 2; j * j <= i; j++){
-            if (i % j === 0){
-                arr.push(j);
-            }
-        }
-    }
-    arr.push(i);
-    return arr;
+const isNum = n => {
+    return !isNaN(parseFloat(n)) && isFinite(n);
 };
 
-for (let i = 1; i <= 100; i++){
-    const n = number(i);
-    if (n.length <= 2){
-        console.log(`${i}: Простое число. Делители этого числа: ${n.join(', ')}`);
-    }
-}
+const start = () => {
+    let num = 50;
+    let tmp = 10;
+    const game = () => {
+        tmp--;
+        if (tmp < 0){
+            if (confirm('Попытки закончились, хотите сыграть еще?')) {
+                start();
+            } else {
+                alert('До свидания');
+                return;
+            }
+        } else {
+            const n = prompt('Угадай число от 1 до 100','50');
+            if (n === null){
+                alert('Пока');
+                return;
+            }
+            if (isNum(n)){
+                const realNum = n;
+                if (realNum > num){
+                    alert(`Загаданное число больше, осталось попыток: ${tmp}`);
+                    game();
+                } else if (realNum < num){
+                    alert(`Загаданное число меньше, осталось попыток: ${tmp}`);
+                    game();
+                } else {
+                    if (confirm('Вы угадали! Сыграем ещё?')){
+                        start();
+                    } else {
+                        alert('До свидания');
+                        return;
+                    }
+                }
+            } else {
+                alert('Введите число');
+                game();
+            }
+        }
+    };
+    game();
+};
 
-// — Рядом с каждым числом написать оба делителя данного числа
-//     Например: “Делители этого числа: 1 и n”
-for (let i = 1; i <= 100; i++) {
-    console.log(`${i}: Делители этого числа: ${number(i).join(', ')}`);
-}
+start();
