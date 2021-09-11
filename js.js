@@ -1,30 +1,30 @@
 'use strict';
 
-const myLesson = [
-    {lesson: 1, type: 'basic', points: 2},
-    {lesson: 2, type: 'additional', points: 4},
-    {lesson: 3, type: 'basic', points: 6},
-    {lesson: 4, type: 'additional', points: 3},
-    {lesson: 5, type: 'basic', points: 4},
-    {lesson: 6, type: 'basic', points: 2},
-    {lesson: 7, type: 'additional', points: 2},
-    {lesson: 8, type: 'basic', points: 6},
-    {lesson: 9, type: 'basic', points: 4},
-    {lesson: 10, type: 'basic', points: 6},
-    {lesson: 11, type: 'additional', points: 5},
-    {lesson: 12, type: 'basic', points: 2},
-    {lesson: 13, type: 'additional', points: 2},
-    {lesson: 14, type: 'basic', points: 4},
-    {lesson: 15, type: 'additional', points: 1},
-    {lesson: 16, type: 'additional', points: 7},
-];
+const cityArr = {
+    rus: ['Москва', 'Санк-Петербург', 'Новосибирск', 'Екатеринбург', 'Нижний Новгород', 'Казань', 'Челябинск'],
+    uk: ['Киев', 'Харьков', 'Одесса', 'Днепр', 'Донецк', 'Запорожье', 'Львов'],
+    bel: ['Минск', 'Гомель', 'Могилёв', 'Витебск', 'Гродно', 'Брест'],
+    jap: ['Токио', 'Киото', 'Осака', 'Иокогама']
+};
 
-for (let i = myLesson.length - 1;  i >= 0; i-- ){
-    const type = myLesson[i].type;
-    if (type === 'additional'){
-        myLesson.splice(myLesson.indexOf(myLesson[i]), 1);
-    } else if (type === 'basic') {
-        myLesson[i].points = myLesson[i].points / 2;
-    }
-}
-console.log(myLesson);
+const country = document.getElementById('country');
+const result = document.querySelector('.result');
+const city = document.getElementById('city');
+// console.log(cityArr['jap']);
+
+const selectCountry = (event) => {
+    city.style.display = 'inline-block';
+    city.innerHTML = '';
+    cityArr[event.target.value].forEach((item) => {
+        const option = document.createElement("option");
+        option.innerHTML = item;
+        option.value = event.target.options[event.target.options.selectedIndex].text;
+        city.append(option);
+    });
+};
+
+country.addEventListener("change", selectCountry);
+city.addEventListener("change", (event) => {
+    result.innerHTML = event.target.value + ', ' +
+        event.target.options[event.target.options.selectedIndex].text;;
+});
