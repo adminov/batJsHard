@@ -1,8 +1,18 @@
 'use strict';
 
-function getResult(x, y) {
-    let result = (Math.pow(x, y) + '').split('').map(item => +item).reduce((accum, item) => accum + item);
-    return result;
+const calculator = {
+    sum: function(){
+        return parseFloat(document.querySelector('#a').value) + parseFloat(document.querySelector('#b').value);
+    },
+    mult: function(){
+        return parseFloat(document.querySelector('#a').value) * parseFloat(document.querySelector('#b').value);
+    },
+    show: function(){
+        console.log(event.target.id);
+        event.target.id === 'sum' ? document.querySelector('#res').value = this.sum() :
+            document.querySelector('#res').value = this.mult();
+    }
 }
 
-console.log(getResult(3, 10));
+document.querySelector('#sum').addEventListener('click', calculator.show.bind(calculator));
+document.querySelector('#mult').addEventListener('click', calculator.show.bind(calculator));
